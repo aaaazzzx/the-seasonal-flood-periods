@@ -1,5 +1,5 @@
 % 读取日流量数据
-
+file = pwd ;
 % num = zeros(31*3,12);
 % shangxunpjun = zeros(1,12);
 % zhongxunpjun = zeros(1,12);
@@ -26,7 +26,7 @@
 % 逐日平均流量
 Q = zeros(31,31,12);     %年/日/月
 for i = 1973:2003
-    Q(i-1972,:,:)=xlsread('I:/毛俊水库水文工作/分期洪水/毛俊日流量表1973-2003.xls',num2str(i),'B3:M33'); 
+    Q(i-1972,:,:)=xlsread([file,'\data\source\毛俊日流量表1973-2003.xls'],num2str(i),'B3:M33'); 
 end
 
 %逐年旬日平均最大值
@@ -111,6 +111,6 @@ for i = 1:12
 end
 
 
-xlswrite('I:/毛俊水库水文工作/分期洪水/毛俊月平均流量表1973-2003.xls',Xun_Ex,'sheet2','B2')
+xlswrite([file,'\data\source\毛俊日流量表1973-2003.xls'],Xun_Ex,'sheet2','B2')
 
 
