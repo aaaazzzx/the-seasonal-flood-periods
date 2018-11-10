@@ -1,8 +1,21 @@
 %pretreatmentnew
 
 
-% 1st. read data source
+%% 1st. read data source
 file = pwd ;
+
+Q = zeros(31,31,12);     %年/日/月
+for i = 1973:2003
+    Q(i-1972,:,:)=xlsread([file,'\data\source\毛俊日流量表1973-2003.xls'],num2str(i),'B3:M33'); 
+end
+
+%% 2st. div data
+
+
+
+
+
+
 % num = zeros(31*3,12);
 % shangxunpjun = zeros(1,12);
 % zhongxunpjun = zeros(1,12);
