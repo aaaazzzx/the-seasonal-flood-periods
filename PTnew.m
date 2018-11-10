@@ -8,6 +8,7 @@ Q = zeros(31,31,12);     %年/日/月
 for i = 1973:2003
     Q(i-1972,:,:)=xlsread([file,'\data\source\毛俊日流量表1973-2003.xls'],num2str(i),'B3:M33'); 
 end
+Q(isnan(Q)==1) = 0 ;
 
 %% 2st. div data
 
@@ -40,15 +41,15 @@ end
 % % xlswrite('I:/毛俊水库水文工作/分期洪水/毛俊旬平均流量表1973-2003.xls',xiaxunpjun/31,'sheet1','C97')
 
 % 逐日平均流量
-Q = zeros(31,31,12);     %年/日/月
-for i = 1973:2003
-    Q(i-1972,:,:)=xlsread([file,'\data\source\毛俊日流量表1973-2003.xls'],num2str(i),'B3:M33'); 
-end
-
-%逐年旬日平均最大值
-Q1max_xun = zeros(31,12,3);
-%逐年月日平均最大值
-Q1max_Moon = zeros(31,12);
+% Q = zeros(31,31,12);     %年/日/月
+% for i = 1973:2003
+%     Q(i-1972,:,:)=xlsread([file,'\data\source\毛俊日流量表1973-2003.xls'],num2str(i),'B3:M33'); 
+% end
+% 
+% %逐年旬日平均最大值
+% Q1max_xun = zeros(31,12,3);
+% %逐年月日平均最大值
+% Q1max_Moon = zeros(31,12);
 
 % for i = 1 :31        
 %     for j = 1:12
@@ -93,40 +94,40 @@ Q1max_Moon = zeros(31,12);
 
 %逐月平均值
 
-Month_Ex = zeros(1,12);
-
-
-
-for i = 1 :12 
-    Month_Ex(1,i) = nansum(nansum( Q(:,:,i) )) / (sum(sum(Q(:,:,i)~=0))-numel(find(isnan(Q(:,:,i)))));
-    
-
-    
- end
+% Month_Ex = zeros(1,12);
+% 
+% 
+% 
+% for i = 1 :12 
+%     Month_Ex(1,i) = nansum(nansum( Q(:,:,i) )) / (sum(sum(Q(:,:,i)~=0))-numel(find(isnan(Q(:,:,i)))));
+%     
+% 
+%     
+%  end
 
 
 % xlswrite('I:/毛俊水库水文工作/分期洪水/毛俊月平均流量表1973-2003.xls',Month_Ex,'sheet1','B2')
 
-%逐旬平均值
-Xun_Ex = zeros(1,3*12);
-
-for i = 1:12
-     for j = 1 : 3
-         if j == 1
-             Xun_Ex(i*3-3+j) = nansum(nansum( Q(:,1:10,i) )) / (sum(sum(Q(:,1:10,i)~=0))-numel(find(isnan(Q(:,1:10,i))))) ;   %逐旬平均
-         elseif j==2
-             Xun_Ex(i*3-3+j) = nansum(nansum( Q(:,11:20,i) )) / (sum(sum(Q(:,11:20,i)~=0))-numel(find(isnan(Q(:,11:20,i))))) ;  ;   %逐旬平均    
-         else 
-             Xun_Ex(i*3-3+j) = nansum(nansum( Q(:,21:31,i) )) / (sum(sum(Q(:,21:31,i)~=0))-numel(find(isnan(Q(:,21:31,i))))) ;  ;   %逐旬平均    
-         end
-         
-         
-         
-     end
-         
-end
-
-
-xlswrite([file,'\data\source\毛俊日流量表1973-2003.xls'],Xun_Ex,'sheet2','B2');
+% 逐旬平均值
+% Xun_Ex = zeros(1,3*12);
+% 
+% for i = 1:12
+%      for j = 1 : 3
+%          if j == 1
+%              Xun_Ex(i*3-3+j) = nansum(nansum( Q(:,1:10,i) )) / (sum(sum(Q(:,1:10,i)~=0))-numel(find(isnan(Q(:,1:10,i))))) ;   %逐旬平均
+%          elseif j==2
+%              Xun_Ex(i*3-3+j) = nansum(nansum( Q(:,11:20,i) )) / (sum(sum(Q(:,11:20,i)~=0))-numel(find(isnan(Q(:,11:20,i))))) ;  ;   %逐旬平均    
+%          else 
+%              Xun_Ex(i*3-3+j) = nansum(nansum( Q(:,21:31,i) )) / (sum(sum(Q(:,21:31,i)~=0))-numel(find(isnan(Q(:,21:31,i))))) ;  ;   %逐旬平均    
+%          end
+%          
+%          
+%          
+%      end
+%          
+% end
+% 
+% 
+% xlswrite([file,'\data\source\毛俊日流量表1973-2003.xls'],Xun_Ex,'sheet2','B2');
 
 
