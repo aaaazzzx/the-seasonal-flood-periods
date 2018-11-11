@@ -4,7 +4,7 @@ function [ data_xun ] = div_xun( Q )
 %    data_xun(36,yy,dd);  将数据按旬重新划分 
 
 [yy,~,~] = size(Q) ;
-data_xun = zero(36,yy,11);
+data_xun = zeros(36,yy,11);
 for i = 1:36
     for j = 1:yy
         for k = 1:10
@@ -15,17 +15,6 @@ for i = 1:36
         end
     end
 end
-
-
-
- z=find(data_xun==0);
-
-data_xun(z)=[];
-
-a = sum(sum(sum(data_xun)))   -   sum(sum(sum(Q))) ;
-
-
-
 
 end
 
