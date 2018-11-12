@@ -12,10 +12,11 @@ Q(isnan(Q)==1) = 0 ;
 
 %% 2st. div data
 
+data_xun = div_xun( Q );
+data_m = div_m( Q );
 
-
-
-
+save ([pwd,'\data\pretreatment\data_xun.txt'],'data_xun','-ascii' )
+save ([pwd,'\data\pretreatment\data_m.txt'],'data_m','-ascii' )
 
 % num = zeros(31*3,12);
 % shangxunpjun = zeros(1,12);
