@@ -1,4 +1,4 @@
-% 读取日流量数据
+ % 读取日流量数据
 file = pwd ;
 % num = zeros(31*3,12);
 % shangxunpjun = zeros(1,12);
