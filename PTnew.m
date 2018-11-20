@@ -18,6 +18,9 @@ data_m = div_m( Q );
 save ([pwd,'\data\pretreatment\data_xun.txt'],'data_xun','-ascii' )
 save ([pwd,'\data\pretreatment\data_m.txt'],'data_m','-ascii' )
 
+
+
+
 % num = zeros(31*3,12);
 % shangxunpjun = zeros(1,12);
 % zhongxunpjun = zeros(1,12);
