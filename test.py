@@ -26,8 +26,13 @@ def loadDatadet(infile,k):
         del(dataset[i][0:k])
     return dataset
 
-
-
+def List_max(list,n):
+    x=len(list)
+    y=numpy.zeros(x-n+1)
+    for i in range(x-n+1):
+        y[i]=numpy.sum(list[i:i+n])
+    y=numpy.max(y)
+    return y
 
 
 if __name__ == '__main__':
@@ -38,11 +43,15 @@ if __name__ == '__main__':
     infile=loadDatadet(filePath,961)  #961为每行所含数字
     data_m = numpy.array(infile)
     x,y= data_m.shape
+    data_pr = numpy.zeros((x,4))
     for i in range(x):
         for j in range(int(y/31)):
             data_now = data_m[i,j*31:(j+1)*31]
-            data_now = data_now[data_now>0.000001]
-            
-
+            data_now = data_now[data_now>0]
+            data_pr[i,0]=numpy.mean(data_now)
+            data_pr[i,1]=List_max(data_now,3)
+            data_pr[i,2]=List_max(data_now,7)
+            data_pr[i,3]=numpy.std(data_now,ddof = 1)/data_pr[i,0]
+    print (data_pr)
  
 
