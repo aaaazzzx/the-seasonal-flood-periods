@@ -2,6 +2,8 @@ import os
 import pandas
 import numpy
 
+
+
 #查找当前文件夹下的指定文件，同时返回文件目录
 def eachFile(filename): 
     file = os.getcwd()    
@@ -52,6 +54,8 @@ if __name__ == '__main__':
             data_pr[i,1]=List_max(data_now,3)
             data_pr[i,2]=List_max(data_now,7)
             data_pr[i,3]=numpy.std(data_now,ddof = 1)/data_pr[i,0]
-    print (data_pr)
- 
-
+    
+    file = os.getcwd()
+    f = open('%s\data\pretreatment\pre_m.txt'%(file),'w')
+    numpy.savetxt('%s\data\pretreatment\pre_m.txt'%(file),data_pr)
+    f.close()
