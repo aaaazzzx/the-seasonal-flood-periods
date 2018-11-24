@@ -5,7 +5,7 @@ import numpy
 from sklearn.preprocessing import MinMaxScaler
 
 def eachFile(filename): 
-    file = os.getcwd()    
+    file = os.getcwd()
     for root,dirs,files in os.walk(file):
         if filename in files:
             filePath = os.path.join(str(root),str(dirs))
@@ -19,4 +19,24 @@ if __name__ == '__main__':
     filePath = eachFile(fileName)
     pre_m = open(filePath)
     data_m = numpy.loadtxt(pre_m)
-    print (data_m)
+    x,y= data_m.shape
+    data_m_t = numpy.zeros((x,y))
+    scaler = MinMaxScaler()
+    scaler.fit(data_m)
+    data_m_t=scaler.transform(data_m)
+    # print (data_m_t)
+    D = numpy.zeros((y,x-1,x-1))
+    D1 = numpy.zeros((y,x-1,x-1))
+    for k in range(y):
+        for i in range(x-1):
+            for j in range(i+1,x):
+                print (i,j)
+                print (data_m_t[i:j+1,k])
+                D[k,i,j-1] = (j-i+1)*numpy.std(data_m_t[i:j+1,k])
+                D2[k,i,j-1] = (12-(j-i+1))*numpy.std(numpy.delete(data_m_t[:,k],i:j+1))
+    print (D2[1,:,:])
+
+    file = os.getcwd()
+    f = open('%s\data\pretreatment\D1.txt'%(file),'w')
+    numpy.savetxt('%s\data\pretreatment\D1.txt'%(file),D[1,:,:])
+    f.close()
