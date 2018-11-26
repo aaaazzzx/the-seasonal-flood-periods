@@ -26,14 +26,15 @@ if __name__ == '__main__':
     scaler.fit(data_m)
     data_m_t=scaler.transform(data_m)
     # print (data_m_t)
-    D = numpy.zeros((y,x-1,x-1))
-    D2 = numpy.zeros((y,x-1,x-1))
-    D1 = numpy.zeros((y,x))
+    D = numpy.zeros((y,x-1,x-1))    #期间
+    D2 = numpy.zeros((y,x-1,x-1))    #反期间
+    D1 = numpy.zeros((y,x))    #仅去除一个月
+    D3 = numpy.zeros((y,x))    #非首尾相连
     for k in range(y):
-        for i in range(x-1):
+        for i in range(x):
+            D3[k,i] = i * numpy.std(data_m_t[:i,k]) + (12-i) * numpy.std(data_m_t[i:,k])
+            print (i,numpy.std(data_m_t[:i,k]),numpy.std(data_m_t[i:,k]),numpy.std(data_m_t[:,k]))
             for j in range(i+1,x):
-                print (i,j)
-                print (data_m_t[i:j+1,k])
                 D[k,i,j-1] = (j-i+1)*numpy.std(data_m_t[i:j+1,k])
                 #D2[k,i,j-1] = (12-(j-i+1)) * numpy.std ( numpy.append(data_m_t[:i,k],data_m_t[j:,k]) )
                 for l in range (x):
@@ -41,11 +42,12 @@ if __name__ == '__main__':
     # print (D2[1,:,:])
     
     file = os.getcwd()
-    f = open('%s\data\pretreatment\D.txt'%(file),'w')
-    numpy.savetxt('%s\data\pretreatment\D.txt'%(file),D2[1,:,:])
-    writer = pandas.ExcelWriter('output1.xlsx')
+    #f = open('%s\data\pretreatment\D.txt'%(file),'w')
+    #numpy.savetxt('%s\data\pretreatment\D.txt'%(file),D2[1,:,:])
+    #f.close()
+    writer = pandas.ExcelWriter('outputD3.xlsx')
     for i in range(y):
-        df = pandas.DataFrame(D1[i,:])
+        df = pandas.DataFrame(D3[i,:])
         df.to_excel(writer,'Sheet%s'%(i))
         writer.save()
-    f.close()
+
