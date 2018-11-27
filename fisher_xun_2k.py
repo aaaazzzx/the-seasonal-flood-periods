@@ -33,7 +33,8 @@ if __name__ == '__main__':
         for i in range(x):
             D3[k, i] = i * numpy.std(data_m_t[:i, k]) + (12*3 - i) * numpy.std(data_m_t[i:, k])
             print(i, numpy.std(data_m_t[:i, k]), numpy.std(data_m_t[i:, k]), numpy.std(data_m_t[:, k]))
-            for j in range(i + 1, x):
+            j = 18
+            if i< j :
                 D[k, i, j - 1] = (j - i + 1) * numpy.std(data_m_t[i:j + 1, k])
                 D2[k,i,j-1] = (12*3-(j-i+1)) * numpy.std ( numpy.append(data_m_t[:i,k],data_m_t[j:,k]) )
 
@@ -45,7 +46,7 @@ if __name__ == '__main__':
     # f = open('%s\data\pretreatment\D.txt'%(file),'w')
     # numpy.savetxt('%s\data\pretreatment\D.txt'%(file),D2[1,:,:])
     # f.close()
-    writer = pandas.ExcelWriter('outputD_xun.xlsx')
+    writer = pandas.ExcelWriter('outputD_xun_2k.xlsx')
     for i in range(y):
         df = pandas.DataFrame(D[i, :]+D2[i, :])
         df.to_excel(writer, 'Sheet%s' % (i))
