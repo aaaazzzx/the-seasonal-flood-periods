@@ -30,18 +30,18 @@ if __name__ == '__main__':
     # D2 = numpy.zeros((y, x - 1, x - 1))  # 反期间
     # D1 = numpy.zeros((y, x))  # 仅去除一个  在旬中不考虑
     # D3 = numpy.zeros((y, x))  # 非首尾相连
-    x = 0    #指定连续期间
+    x = 18    #指定连续期间
     y = 36
     z = range(x,y)
     writer = pandas.ExcelWriter('fisher_xun指定位置.xlsx')
-    I = numpy.zeros((n,y))  # 期间
+    I = numpy.zeros((y,n))  # 期间
     for k in range(m):
         for i in z:
             # I = numpy.zeros((y, i, i))  # 期间
             I[k, i] = (i) * numpy.std(data_m_t[x:i, k]) + (y - i) * numpy.std(data_m_t[i:y, k])
             # D3[k, i] = i * numpy.std(data_m_t[:i, k]) + (12*3 - i) * numpy.std(data_m_t[i:, k])
         df = pandas.DataFrame(I[k, :])
-        df.to_excel(writer, '%s-%d' % (x,y))
+        df.to_excel(writer, '%s-%s-%s' % (x,y,k))
         writer.save()
                 # D2[k,i,j-1] = (12*3-(j-i+1)) * numpy.std ( numpy.append(data_m_t[:i,k],data_m_t[j:,k]) )
 

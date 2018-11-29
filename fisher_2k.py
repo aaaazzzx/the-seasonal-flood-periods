@@ -38,8 +38,8 @@ if __name__ == '__main__':
             D3[k, i] = i * numpy.std(data_m_t[:i, k]) + (12*3 - i) * numpy.std(data_m_t[i:, k])
             for j in range(i,x-1):
                 I[k, i, j ] = (i) * numpy.std(data_m_t[:i, k]) + ( j - i ) * numpy.std(data_m_t[i:j, k]) + ( x - j ) * numpy.std(data_m_t[j:, k])
-        df = pandas.DataFrame(I[k, :,:])
-        df.to_excel(writer, '%sk' % (k))
+        #df = pandas.DataFrame(I[k, :,:])
+        #df.to_excel(writer, '%sk' % (k))
         writer.save()
                 # D2[k,i,j-1] = (12*3-(j-i+1)) * numpy.std ( numpy.append(data_m_t[:i,k],data_m_t[j:,k]) )
 

@@ -45,8 +45,8 @@ if __name__ == '__main__':
     # f = open('%s\data\pretreatment\D.txt'%(file),'w')
     # numpy.savetxt('%s\data\pretreatment\D.txt'%(file),D2[1,:,:])
     # f.close()
-    writer = pandas.ExcelWriter('outputD_xun.xlsx')
+    writer = pandas.ExcelWriter('outputD3_xun.xlsx')
     for i in range(y):
-        df = pandas.DataFrame(D[i, :]+D2[i, :])
+        df = pandas.DataFrame(D3[i, :])
         df.to_excel(writer, 'Sheet%s' % (i))
         writer.save()
