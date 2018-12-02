@@ -15,7 +15,7 @@ def eachFile(filename):
 
 
 if __name__ == '__main__':
-    fileName = 'pre_xun.txt'
+    fileName = 'Dxun.txt'
     filePath = eachFile(fileName)
     pre_m = open(filePath)
     data_m = numpy.loadtxt(pre_m)

@@ -26,3 +26,6 @@ for i in range(12*3):    #旬j
 df = pandas.DataFrame(output)
 df.to_excel(writer, 'sheet1' )
 writer.save()
+f = open(r'旬逐日流量.txt','w')
+numpy.savetxt(r'旬逐日流量.txt',output)
+f.close()

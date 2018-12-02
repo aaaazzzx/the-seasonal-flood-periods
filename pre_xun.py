@@ -38,14 +38,13 @@ def List_max(list, n):
 
 
 if __name__ == '__main__':
-    fileName = 'data_xun.txt'
-    filePath = eachFile(fileName)
-    data_m = open(filePath)
-    infile = loadDatadet(filePath, 31*11)  # 每行所含数字
-    data_m = numpy.array(infile)
+    fileName = r'旬逐日流量.txt'
+    pre_m = open(fileName)
+    data_m = numpy.loadtxt(pre_m)
     x, y = data_m.shape
     print (x,y)
     data_pr = numpy.zeros((x, 4))
+
     for i in range(x):
         for j in range(int(y / 11)):
             data_now = data_m[i, j * 11:(j + 1) * 11]
@@ -56,6 +55,12 @@ if __name__ == '__main__':
             data_pr[i, 3] = numpy.std(data_now, ddof=1) / data_pr[i, 0]
 
     file = os.getcwd()
-    f = open('%s\data\pretreatment\pre_xun.txt' % (file), 'w')
-    numpy.savetxt('%s\data\pretreatment\pre_xun.txt' % (file), data_pr)
+    '''
+    f = open('%s\data\pretreatment\Dxun.txt' % (file), 'w')
+    numpy.savetxt('%s\data\pretreatment\Dxun.txt' % (file), data_pr)
     f.close()
+    '''
+    writer = pandas.ExcelWriter('xun.xlsx')
+    df = pandas.DataFrame(data_pr)
+    df.to_excel(writer, 'Sheet%s' % (i))
+    writer.save()
