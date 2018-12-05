@@ -43,24 +43,24 @@ if __name__ == '__main__':
     data_m = numpy.loadtxt(pre_m)
     x, y = data_m.shape
     print (x,y)
-    data_pr = numpy.zeros((x, 4))
+    data_pr = numpy.zeros((x, 4*int(y / 11)))
 
     for i in range(x):
         for j in range(int(y / 11)):
             data_now = data_m[i, j * 11:(j + 1) * 11]
             data_now = data_now[data_now > 0]
-            data_pr[i, 0] = numpy.mean(data_now)
-            data_pr[i, 1] = List_max(data_now, 1)
-            data_pr[i, 2] = List_max(data_now, 3)
-            data_pr[i, 3] = numpy.std(data_now, ddof=1) / data_pr[i, 0]
+            data_pr[i, j*4+0] = numpy.mean(data_now)
+            data_pr[i, j*4+1] = List_max(data_now, 1)
+            data_pr[i, j*4+2] = List_max(data_now, 3)
+            data_pr[i, j*4+3] = numpy.std(data_now, ddof=1) / data_pr[i, j*4+0]
 
     file = os.getcwd()
-    '''
+
     f = open('%s\data\pretreatment\Dxun.txt' % (file), 'w')
-    numpy.savetxt('%s\data\pretreatment\Dxun.txt' % (file), data_pr)
+    numpy.savetxt('%s\data\pretreatment\Dxun.txt' % (file), data_pr)    #逐旬逐年的4个指标
     f.close()
-    '''
-    writer = pandas.ExcelWriter('xun.xlsx')
+
+    writer = pandas.ExcelWriter('xun.xlsx')    #逐旬逐年的4个指标
     df = pandas.DataFrame(data_pr)
     df.to_excel(writer, 'Sheet%s' % (i))
     writer.save()

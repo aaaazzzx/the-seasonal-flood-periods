@@ -17,15 +17,12 @@ def eachFile(filename):
 
 
 if __name__ == '__main__':
-    fileName = 'Dxun.txt'
+    fileName = 'I3.txt'    #逐旬综合指标
     pre_m = open(fileName)
-    data_m = numpy.loadtxt(pre_m)
-    n,m = data_m.shape
-    print(n,m)    #36,341
-    data_m_t = numpy.zeros((n, m))
-    scaler = MinMaxScaler()
-    scaler.fit(data_m)
-    data_m_t = scaler.transform(data_m)
+    data = numpy.loadtxt(pre_m)    #逐旬综合指标
+    #print(data)
+    n, = data.shape
+    #print(n)    #36
     # print (data_m_t)
     # D2 = numpy.zeros((y, x - 1, x - 1))  # 反期间
     # D1 = numpy.zeros((y, x))  # 仅去除一个  在旬中不考虑
@@ -33,17 +30,17 @@ if __name__ == '__main__':
     x = 0    #指定连续期间
     y = 36
     z = range(x,y)
-    print(z)
+    #print(z)
     writer = pandas.ExcelWriter('fisher_xun指定位置.xlsx')
-    I = numpy.zeros((y,n))  # 期间
-    for k in range(m):    # m=341
-        for i in z:
+    I = numpy.zeros(y)  # 期间
+    for i in z:
             # I = numpy.zeros((y, i, i))  # 期间
-            I[k, i] = (i) * numpy.std(data_m_t[x:i, k]) +  (y - i) * numpy.std(data_m_t[i:y, k])
-            # D3[k, i] = i * numpy.std(data_m_t[:i, k]) + (12*3 - i) * numpy.std(data_m_t[i:, k])
-        df = pandas.DataFrame(I[k, :])
-        df.to_excel(writer, '%s-%s-%s' % (x,y,k))
-        writer.save()
+        I[i] = (i) * numpy.std(data[x:i]) +  (y - i) * numpy.std(data[i:y])
+        # D3[k, i] = i * numpy.std(data_m_t[:i, k]) + (12*3 - i) * numpy.std(data_m_t[i:, k])
+    print(I)
+    df = pandas.DataFrame(I)
+    df.to_excel(writer, '%s-%s' % (x,y))
+    writer.save()
                 # D2[k,i,j-1] = (12*3-(j-i+1)) * numpy.std ( numpy.append(data_m_t[:i,k],data_m_t[j:,k]) )
 
     #            for l in range(x):

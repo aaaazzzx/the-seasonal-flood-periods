@@ -1,3 +1,6 @@
+# 取消，改用guiyi出
+
+
 import numpy
 import os
 import pandas
@@ -9,7 +12,7 @@ if __name__ == '__main__':
     fileName = 'Dxun.txt'
     pre_m = open(fileName)
     data = numpy.loadtxt(pre_m)
-    data = numpy.delete(data,-1,axis=1)    #去掉最后一列
+    #data = numpy.delete(data,-1,axis=1)    #去掉最后一列
     n,m = data.shape
     I = numpy.zeros(n)
     #for i in range(n):
