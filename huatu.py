@@ -4,22 +4,29 @@ import numpy
 
 
 if __name__ == '__main__':
-    data = pandas.DataFrame(pandas.read_excel('fisher_xun.xlsx'))
+    data = pandas.DataFrame(pandas.read_excel('outputD_xun_2k.xlsx'))
+    print(data.shape)
     data = data.replace(0,numpy.nan)
-    #print(data)
+    #print(datamin)
+    #print(data.min())
     #print(data.ix[3,2])
     data_out = list()     #建立空的list，用来保存元素
     data_min = data.min(axis=1)
     data_max = data.max(axis=1)
-    for i in range(3,36):
-        for j in range(1,i):
-            data_out.append([i,j,(1-(data.iloc[i,j]-data_min[i])/(data_max[i]-data_min[i]))])
-            print(data_min[i],data.iloc[i,j])
+    #print(data_min)
+    #print(data_min.min())
+    data_max = data.max(axis=1)
+    data = data.replace(numpy.nan,0 )
+    for i in range(36):
+        for j in range(36):
+            if data.iloc[i,j]>0 :
+                data_out.append([i,j,(1-(data.iloc[i,j]-data_min.min())/(data_max.max()-data_min.min()))])    #(1-(data.iloc[i,j]-data_min.min())/(data_max.max()-data_min.min()))
+            # print(i,j,(1-(data.iloc[i,j]-data_min.min())/(data_max.max()-data_min.min())))
     #[d[1], d[0], d[2]] for d in data:
 
-        #print(data[i].min())
+    #print(data[i].min())
 
-    #print(data)
+    print(data_out)
     x_axis = list()
     y_axis = list()
     for i in range(36):
@@ -48,6 +55,7 @@ if __name__ == '__main__':
         [2, 0, 1], [2, 1, 1], [2, 2, 0], [2, 3, 0], [2, 4, 0], [2, 5, 0],
         [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0], [2, 10, 3], [2, 11, 2],
         [2, 12, 1], [2, 13, 9], [2, 14, 8], [2, 15, 10], [2, 16, 6], [2, 17, 5],
+        
         [2, 18, 5], [2, 19, 5], [2, 20, 7], [2, 21, 4], [2, 22, 2], [2, 23, 4],
         [3, 0, 7], [3, 1, 3], [3, 2, 0], [3, 3, 0], [3, 4, 0], [3, 5, 0],
         [3, 6, 0], [3, 7, 0], [3, 8, 1], [3, 9, 0], [3, 10, 5], [3, 11, 4],
@@ -83,8 +91,8 @@ if __name__ == '__main__':
     )
     bar3d.render()
 
-    bar3d = Bar3D("3D 柱状图示例", width=1200, height=600)
-    bar3d.add(
+    xun2k = Bar3D("3D 柱状图示例", width=1200, height=600)
+    xun2k.add(
         "",
         x_axis,
         y_axis,
@@ -96,5 +104,4 @@ if __name__ == '__main__':
         grid3d_depth=200,
         is_grid3d_rotate=True,
     )
-    bar3d.render()
-
+    xun2k.render()

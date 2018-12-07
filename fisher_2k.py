@@ -16,6 +16,25 @@ def eachFile(filename):
     return filePath
 
 
+def fisher_I(data):    # 对指定的区间进行计算I值
+    n  = len(data)
+    I_first =  n * numpy.std(data)
+    return I_first
+
+def fisher_div(data) :
+    # 对指定的区间进行二次划分
+    n = len(data)
+    I = fisher_I(data)
+    j = 0
+    for i in range(1,int(n)):    # 划分成两个部分，最少是一个值
+        if fisher_I(data[:i])+fisher_I(data[i:]) < I:
+            I = fisher_I(data[:i])+fisher_I(data[i:])
+            j = i    # i表示选择前i个数据
+    return I, j
+
+
+
+
 if __name__ == '__main__':
     fileName = 'pre_xun.txt'
     filePath = eachFile(fileName)
@@ -40,7 +59,7 @@ if __name__ == '__main__':
                 I[k, i, j ] = (i) * numpy.std(data_m_t[:i, k]) + ( j - i ) * numpy.std(data_m_t[i:j, k]) + ( x - j ) * numpy.std(data_m_t[j:, k])
         #df = pandas.DataFrame(I[k, :,:])
         #df.to_excel(writer, '%sk' % (k))
-        writer.save()
+        #writer.save()
                 # D2[k,i,j-1] = (12*3-(j-i+1)) * numpy.std ( numpy.append(data_m_t[:i,k],data_m_t[j:,k]) )
 
     #            for l in range(x):
