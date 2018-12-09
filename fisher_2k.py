@@ -16,9 +16,15 @@ def eachFile(filename):
     return filePath
 
 
-def fisher_I(data):    # 对指定的区间进行计算I值
-    n  = len(data)
-    I_first =  n * numpy.std(data)
+def fisher_I(data,m=1):    # 对指定的区间进行计算I值
+    I_first = 0
+    if m==1:
+        n  = len(data)
+        I_first =  n * numpy.std(data)
+    else:
+        n = len(data)
+        for i in range(n):
+            I_first = I_first + fisher_I(data[i])
     return I_first
 
 def fisher_div(data) :
@@ -29,11 +35,49 @@ def fisher_div(data) :
     for i in range(1,int(n)):    # 划分成两个部分，最少是一个值
         if fisher_I(data[:i])+fisher_I(data[i:]) < I:
             I = fisher_I(data[:i])+fisher_I(data[i:])
+            data1 = data[:i]
+            data2 = data[i:]
             j = i    # i表示选择前i个数据
-    return I, j
+    data_new = [data1,data2]
+    return data_new
 
+def fisher_find(I0,data):
+    # 求后者在前者中的位置
+    n = len(I0)
+    m = len(data)
+    data_weizhi = [[] for _ in range(m)]
+    for i in range(m):
+        o = len(data[i])
+        for j in range(o):
+            weizhi = I0.index(data[i][j]) + 1
+            # insert()
+            data_weizhi[i].append(weizhi)
+    return data_weizhi
 
-
+def fisher_huafen(data,m=1):
+    if m == 1:
+        # 初次划分
+        n = len(data)
+        I = fisher_I(data)
+        for i in range(1, int(n)):  # 划分成两个部分，最少是一个值
+            if fisher_I(data[:i]) + fisher_I(data[i:]) < I:
+                I = fisher_I(data[:i]) + fisher_I(data[i:])
+                data1 = data[:i]
+                data2 = data[i:]
+        data_new = [data1, data2]
+    else:
+        # data中含多个划分
+        n = len(data)
+        I = fisher_I(data, n)
+        for i in range(n):
+            data_div = fisher_div(data[i])
+            data_i = data
+            data_i.append(data_div)
+            data_i.remove(i)
+            if fisher_I(data_i,2)<I:
+                data_new = data_i
+                I = fisher_I(data_i,2)
+    return data_new
 
 if __name__ == '__main__':
     fileName = 'pre_xun.txt'

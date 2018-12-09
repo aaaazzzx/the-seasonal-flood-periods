@@ -25,7 +25,7 @@ if __name__ == '__main__':
     y = 36
     z = range(x, y)
     # print(z)
-    '''
+
     writer = pandas.ExcelWriter('fisher_xun指定位置.xlsx')
     I = numpy.zeros(y)  # 期间
     I2 = numpy.zeros(y)  # 期间
@@ -38,14 +38,15 @@ if __name__ == '__main__':
     df = pandas.DataFrame(I)
     df.to_excel(writer, '%s-%s' % (x, y))
     writer.save()
-    '''
+
 
     # 最优解
     #writer = pandas.ExcelWriter('fisher_最优分割.xlsx')
     x = 10
     y = 19
-    data_in = data[10:19]
-    a = fisher_I(data_in)
+    # data_in = data[10:19]
+    a = fisher_I(data[0:3]) + fisher_I(data[3:])
+    print(a)
     #print(a)
     # print(fisher_div(data_in))
     data2 = data[:10]
