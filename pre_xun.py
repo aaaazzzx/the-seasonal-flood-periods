@@ -49,6 +49,7 @@ if __name__ == '__main__':
         for j in range(int(y / 11)):
             data_now = data_m[i, j * 11:(j + 1) * 11]
             data_now = data_now[data_now > 0]
+            print(i,data_now)
             data_pr[i, j*4+0] = numpy.mean(data_now)
             data_pr[i, j*4+1] = List_max(data_now, 1)
             data_pr[i, j*4+2] = List_max(data_now, 3)
@@ -59,7 +60,6 @@ if __name__ == '__main__':
     f = open('%s\data\pretreatment\Dxun.txt' % (file), 'w')
     numpy.savetxt('%s\data\pretreatment\Dxun.txt' % (file), data_pr)    #逐旬逐年的4个指标
     f.close()
-
     writer = pandas.ExcelWriter('xun.xlsx')    #逐旬逐年的4个指标
     df = pandas.DataFrame(data_pr)
     df.to_excel(writer, 'Sheet%s' % (i))

@@ -18,20 +18,26 @@ I0 = I0.tolist()
 I1 = I0[8:25]
 I2 = I0[25:] + I0[:8]
 I = [I1, I2]
-#print(fisher_2k.fisher_I(I1))
-#print(fisher_2k.fisher_I(I2))
-#print(fisher_2k.fisher_I(I, 2))
+# print(fisher_2k.fisher_I(I1))
+# print(fisher_2k.fisher_I(I2))
+# print(fisher_2k.fisher_I(I, 2))
 print(fisher_2k.fisher_find(I0,I))
+
+
+# 依次划分
 I3 = fisher_2k.fisher_huafen(I, 2)
 print(I3)
 print(fisher_2k.fisher_find(I0,I3))
 
 I4 = fisher_2k.fisher_huafen(I3, 2)
-#print(I[0])
+# print(I[0])
 print(I4)
 print(fisher_2k.fisher_find(I0,I4))
 
-#print(I)
+I5 = fisher_2k.fisher_huafen(I4, 2)
+print(I5)
+print(fisher_2k.fisher_find(I0,I5))
+# print(I)
 
 
 
@@ -40,6 +46,6 @@ print(fisher_2k.fisher_find(I0,I4))
 
 
 # 计算位置
-data_weizhi = fisher_2k.fisher_find(I0,I)
+#data_weizhi = fisher_2k.fisher_find(I0,I)
 # n = fisher_2k.fisher_div(I2)
 # print(data_weizhi)

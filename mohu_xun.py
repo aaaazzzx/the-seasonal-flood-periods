@@ -39,25 +39,55 @@ def List_max(list, n):
 
 
 if __name__ == '__main__':
-    fileName = 'data_xun.txt'
-    filePath = eachFile(fileName)
-    data_m = open(filePath)
-    infile = loadDatadet(filePath, 31*11)  # 每行所含数字
-    data_m = numpy.array(infile)
+    fileName = r'旬逐日流量.txt'
+    pre_m = open(fileName)
+    data_m = numpy.loadtxt(pre_m)
     x, y = data_m.shape
-    print (x,y)
-    data_pr = numpy.zeros((x, 4))
+    print (x,y)    #36,341=11*31
+    data_pr = numpy.zeros((x, 4*int(y / 11)))
+    xun_mean = numpy.zeros((x,31))
     for i in range(x):
         for j in range(int(y / 11)):
             data_now = data_m[i, j * 11:(j + 1) * 11]
             data_now = data_now[data_now > 0]
-            print(data_now)
-            data_pr[i, 0] = numpy.mean(data_now)
-            data_pr[i, 1] = List_max(data_now, 1)
-            data_pr[i, 2] = List_max(data_now, 3)
-            data_pr[i, 3] = numpy.std(data_now, ddof=1) / data_pr[i, 0]
+            data_pr[i, j*4+0] = numpy.mean(data_now)
+            xun_mean[i,j] = numpy.mean(data_now)
+            data_pr[i, j*4+1] = List_max(data_now, 1)
+            data_pr[i, j*4+2] = List_max(data_now, 3)
+            data_pr[i, j*4+3] = numpy.std(data_now, ddof=1) / data_pr[i, j*4+0]
+
+    # print(xun_1)
+    # print(numpy.mean(xun_1))
 
     # file = os.getcwd()
     # f = open('%s\data\pretreatment\xun.txt' % (file), 'w')
     # numpy.savetxt('%s\data\pretreatment\xun.txt' % (file), data_pr)
     # f.close()
+
+
+
+    # 设定划分依据，此处采用旬均值
+
+    xun_pj = numpy.mean(xun_mean)
+    print(xun_pj)
+
+    # print(numpy.mean(data_m))
+    # print(numpy.mean(data_pr[:,0::4]))
+    # print(data_pr[0,0::4])
+    # print(numpy.mean(xun_mean))
+
+
+    #对比
+    n = numpy.zeros((36,31))
+    p = numpy.zeros(36)
+    for i in range(36):
+        for j in range(31):
+            if xun_mean[i,j] >= xun_pj :
+                n[i,j] = 1
+        p[i] = numpy.mean(n[i,:])
+    print(p)
+
+    writer = pandas.ExcelWriter('mohu_xun.xlsx')  # P
+    df = pandas.DataFrame(p)
+    df.to_excel(writer, 'Sheet1' )
+    writer.save()
