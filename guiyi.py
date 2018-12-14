@@ -44,6 +44,7 @@ if __name__ == '__main__':
     f = open('%s\data\pretreatment\I3.txt'%(file),'w')
     numpy.savetxt('%s\data\pretreatment\I3.txt'%(file),I)
     f.close()
+
     writer = pandas.ExcelWriter('I3.xlsx')
     df = pandas.DataFrame(I)
     df.to_excel(writer, 'Sheet1')

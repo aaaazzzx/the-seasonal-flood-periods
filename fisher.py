@@ -32,7 +32,7 @@ if __name__ == '__main__':
         # I = numpy.zeros((y, i, i))  # 期间
         # D3[k, i] = i * numpy.std(data_m_t[:i, k]) + (12*3 - i) * numpy.std(data_m_t[i:, k])
         for j in range(i):
-            I[i, j ] = (j) * numpy.std(data_m[:j]) + ( i - j) * numpy.std(data_m[j:i])
+            I[i, j] = (j) * numpy.std(data_m[:j]) + ( i - j) * numpy.std(data_m[j:i])
     print(I)
     df = pandas.DataFrame(I[ :,:])
     df.to_excel(writer, 'k' )

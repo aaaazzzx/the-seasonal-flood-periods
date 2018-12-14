@@ -7,7 +7,9 @@ a = copy.deepcopy(b)
 print(a)
 a.extend (b)
 print(a)
-
+c = []
+c.append('1')
+print(c)
 
 #a = [[] for _ in range(3)]
 #print(a)
